@@ -83,19 +83,55 @@ class Graph:
         This should be done using recursion.
         """
     def bfs(self, starting_vertex, destination_vertex): # Bredth First Search
+        queue = Queue() # An empty Queue
+        visited = set() # A set for visited
+        queue.enqueue([starting_vertex]) # Add starting_vertex
+
+        while queue.size() > 0: # While nothing in queue
+            path = queue.dequeue()
+            node = path[-1] # While node is last
+
+            if node not in visited: # If node not visited
+                if node == destination_vertex:
+                    return path
+                visited.add(node)
+                for neighbor in self.vertices[node]: # Go through neighbors
+                    new_path = list(path)
+                    new_path.append(neighbor) # Add neighbor to new_path
+                    queue.enqueue(new_path) # enqueue new_path
+
+        return None
         """
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+
     def dfs(self, starting_vertex, destination_vertex): # Depth First Search
+        stack = Stack()
+        visited = []
+        stack.push(starting_vertex)
+
+        while stack.size() > 0:
+            vertex = stack.pop()
+            if vertex not in visited:
+                visited.append(vertex)
+                if vertex == destination_vertex:
+                    print("\n")
+                    print(f'{vertex} is at the target with Depth First Search')
+                    print("\n")
+                    return visited
+                for neigbor in self.vertices[vertex]:
+                    if neigbor not in visited:
+                        stack.push(neigbor)
+        print("\n")
+        print(f'{destination_vertex} wass not found in this graph')
+
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
 
 
 
